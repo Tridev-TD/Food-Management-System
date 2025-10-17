@@ -13,10 +13,12 @@ class gui extends Main {
         jl.setVerticalAlignment(JLabel.CENTER);
         jl.setBounds(50, 10, 400, 100);
         ImageIcon img1=new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\img1.jpg");
-        ImageIcon img2=new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\img2.png");
-        java.awt.Image img=img2.getImage();
-        java.awt.Image newimg=img.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
-        img2=new ImageIcon(newimg);
+        ImageIcon img2=new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\l.png");
+        
+        JPanel panel=new JPanel();
+        //java.awt.Image img=img2.getImage();
+        //java.awt.Image newimg=img.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
+        //img2=new ImageIcon(newimg);
         jl2=new JLabel();
         jl2.setText("LOGIN");
         jl2.setIcon(img2);
@@ -24,7 +26,11 @@ class gui extends Main {
         jl2.setVerticalTextPosition(JLabel.BOTTOM);
         jl2.setHorizontalAlignment(JLabel.CENTER);
         jl2.setVerticalAlignment(JLabel.CENTER);
-        jl2.setBounds(150, 100, 250, 250);
+        jl2.setBounds(120, 100, 250, 250);
+        panel.add(jl2);
+        panel.setVisible(true);
+        panel.setBounds(120, 100, 250, 250);
+        panel.setBackground(new java.awt.Color(123, 50, 250));
 
         JLabel userlabel=new JLabel();
         userlabel.setText("Username:");
@@ -51,8 +57,16 @@ class gui extends Main {
         btn.setVerticalTextPosition(JButton.BOTTOM);
         btn.setHorizontalAlignment(JButton.CENTER);
         btn.setVerticalAlignment(JButton.CENTER);
-        btn.setBounds(200, 450, 100, 30);
+        btn.setBounds(180, 450, 135, 30);
         btn.setText("LOGIN");
+        
+        JButton btn1=new JButton();
+        btn1.setHorizontalTextPosition(JButton.CENTER);
+        btn1.setVerticalTextPosition(JButton.BOTTOM);
+        btn1.setHorizontalAlignment(JButton.CENTER);
+        btn1.setVerticalAlignment(JButton.CENTER);
+        btn1.setBounds(180, 490, 135, 30);
+        btn1.setText("NEW ACCOUNT");
 
        
 
@@ -65,12 +79,13 @@ class gui extends Main {
         jf.getContentPane().setBackground(new java.awt.Color(123, 50, 250));
         jf.setIconImage(img1.getImage());
         jf.add(jl, BorderLayout.NORTH);
-        jf.add(jl2, BorderLayout.CENTER);
+        jf.add(panel, BorderLayout.CENTER);
         jf.add(userlabel, BorderLayout.WEST);
         jf.add(tf, BorderLayout.EAST);
         jf.add(passlabel, BorderLayout.SOUTH);
         jf.add(tf2, BorderLayout.SOUTH);
         jf.add(btn, BorderLayout.SOUTH);
+        jf.add(btn1, BorderLayout.SOUTH);
 
         jf.setLayout(null);
         //jf.pack();
