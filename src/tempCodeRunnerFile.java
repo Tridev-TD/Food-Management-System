@@ -1,2 +1,1 @@
-
-        jl.setVerticalAlignment(jl.CENTER);
+panel.setLayout(null);
