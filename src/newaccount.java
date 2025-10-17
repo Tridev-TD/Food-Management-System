@@ -1,13 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 public class newaccount implements ActionListener {
     JFrame newframe;
-    // make these instance fields so actionPerformed can access them
-    private JTextField tf; // username
-    private JTextField tf2; // password
-    private JCheckBox checkBox; // donor
-    private JCheckBox checkBox2; // recipient
+    private JTextField tf; 
+    private JTextField tf2; 
+    private JCheckBox checkBox; 
+    private JCheckBox checkBox2; 
     newaccount() {
 
 
@@ -95,6 +99,7 @@ public class newaccount implements ActionListener {
 
         if(command.equals("CREATE ACCOUNT")) {
             String username = tf.getText();
+
             String password = tf2.getText();
             
 
@@ -109,8 +114,37 @@ public class newaccount implements ActionListener {
 
             JOptionPane.showMessageDialog(newframe, "Created account\nUser: " + username , "Account Created", JOptionPane.INFORMATION_MESSAGE);
 
+                    try {
+            // Load SQLite JDBC driver
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+}
+            try (Connection conn = DriverManager.getConnection("jdbc:sqlite:login.db")) {
+
+            String checkSql = "SELECT COUNT(*) FROM users WHERE username = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setString(1, username);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next() && rs.getInt(1) > 0) {
+                System.out.println("Username already exists!");
+            } else {
+                // Insert new user
+                String insertSql = "INSERT INTO users(username, password) VALUES(?, ?)";
+                PreparedStatement insertStmt = conn.prepareStatement(insertSql);
+                insertStmt.setString(1, username);
+                insertStmt.setString(2, password);
+                insertStmt.executeUpdate();
+                System.out.println("User added successfully!");
+            }
+
+        } catch (SQLException ei) {
+            ei.printStackTrace();
+        }
+    }
+
             newframe.dispose();
             gui g=new gui();
         }
     }
-}   

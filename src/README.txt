@@ -1,0 +1,2 @@
+javac -cp ".;sqlite-jdbc-3.50.3.0.jar" *.java 
+java -cp ".;sqlite-jdbc-3.50.3.0.jar" Main
