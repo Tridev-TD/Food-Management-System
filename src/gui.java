@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-class gui extends Main {
+import java.awt.event.ActionListener;
+import java.awt.event.*;
+class gui extends Main implements ActionListener {
     
     JFrame jf;
     JLabel jl,jl2;
@@ -20,7 +22,7 @@ class gui extends Main {
         //java.awt.Image newimg=img.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
         //img2=new ImageIcon(newimg);
         jl2=new JLabel();
-        jl2.setText("LOGIN");
+        
         jl2.setIcon(img2);
         jl2.setHorizontalTextPosition(JLabel.CENTER);
         jl2.setVerticalTextPosition(JLabel.BOTTOM);
@@ -88,8 +90,21 @@ class gui extends Main {
         jf.add(btn1, BorderLayout.SOUTH);
 
         jf.setLayout(null);
+        btn.addActionListener(this);
+        btn1.addActionListener(this);
         //jf.pack();
         
 
+    }
+    public void actionPerformed(ActionEvent e) {
+        String command=e.getActionCommand();
+        if(command.equals("LOGIN")) {
+            jf.dispose();
+            loggedin LoggedIn = new loggedin();
+        }
+        else if(command.equals("NEW ACCOUNT")) {
+            jf.dispose();
+            newaccount newacc = new newaccount();
+        }
     }
 }
