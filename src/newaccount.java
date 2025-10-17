@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.event.*;
 public class newaccount implements ActionListener {
     JFrame newframe;
+    // make these instance fields so actionPerformed can access them
+    private JTextField tf; // username
+    private JTextField tf2; // password
+    private JCheckBox checkBox; // donor
+    private JCheckBox checkBox2; // recipient
     newaccount() {
 
 
@@ -13,7 +18,7 @@ public class newaccount implements ActionListener {
         titleLabel.setVerticalAlignment(JLabel.CENTER);
         titleLabel.setBounds(100, 50, 300, 30);
 
-        ImageIcon img2=new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\l1.png");
+        ImageIcon img2=new ImageIcon("C:\\Java Project\\Food-Management-System\\images\\l1.png");
 
         JPanel createPanel=new JPanel();
         java.awt.Image img=img2.getImage();
@@ -41,8 +46,8 @@ public class newaccount implements ActionListener {
         userlabel.setVerticalAlignment(JLabel.CENTER);
         userlabel.setBounds(70, 350, 120, 30);
 
-        JTextField tf=new JTextField();
-        tf.setBounds(200, 350, 200, 30);
+    tf=new JTextField();
+    tf.setBounds(200, 350, 200, 30);
 
         JLabel passlabel=new JLabel();
         passlabel.setText("Choose Password:");  
@@ -52,15 +57,15 @@ public class newaccount implements ActionListener {
         passlabel.setVerticalAlignment(JLabel.CENTER);
         passlabel.setBounds(70, 400, 120, 30);
         
-        JTextField tf2=new JTextField();
-        tf2.setBounds(200, 400, 200, 30);
+    tf2=new JTextField();
+    tf2.setBounds(200, 400, 200, 30);
 
         JLabel roleLabel = new JLabel("Select Role:");
         roleLabel.setBounds(70, 450, 100, 30);
-        JCheckBox checkBox = new JCheckBox("DONOR");
-        checkBox.setBounds(200, 450, 100, 30);
-        JCheckBox checkBox2 = new JCheckBox("RECIPIENT");
-        checkBox2.setBounds(300, 450, 100, 30);
+    checkBox = new JCheckBox("DONOR");
+    checkBox.setBounds(200, 450, 100, 30);
+    checkBox2 = new JCheckBox("RECIPIENT");
+    checkBox2.setBounds(300, 450, 100, 30);
         JButton createButton = new JButton("CREATE ACCOUNT");
         createButton.setBounds(180, 500, 150, 30);
 
@@ -87,7 +92,23 @@ public class newaccount implements ActionListener {
 
     }public void actionPerformed(ActionEvent e) {
         String command=e.getActionCommand();
+
         if(command.equals("CREATE ACCOUNT")) {
+            String username = tf.getText();
+            String password = tf2.getText();
+            
+
+            if(username.trim().isEmpty() || password.trim().isEmpty()){
+                JOptionPane.showMessageDialog(newframe, "Username and password cannot be empty", "Validation", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            System.out.println("Username: " + username);
+            System.out.println("Password: " + password);
+
+
+            JOptionPane.showMessageDialog(newframe, "Created account\nUser: " + username , "Account Created", JOptionPane.INFORMATION_MESSAGE);
+
             newframe.dispose();
             gui g=new gui();
         }
