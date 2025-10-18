@@ -1,11 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 class gui extends Main implements ActionListener {
     
     JFrame jf;
     JLabel jl,jl2;
+    JTextField tf;
+    JPasswordField tf2;
     gui() {
         jl=new JLabel();
         Font font = new Font("Monospaced", Font.BOLD, 24);
@@ -44,7 +50,7 @@ class gui extends Main implements ActionListener {
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setVerticalAlignment(JLabel.CENTER);
         userlabel.setBounds(70, 370, 100, 30);
-        JTextField tf=new JTextField();
+        tf=new JTextField();
         tf.setBounds(150, 370, 200, 30);
 
         JLabel passlabel=new JLabel();
@@ -54,7 +60,7 @@ class gui extends Main implements ActionListener {
         passlabel.setHorizontalAlignment(JLabel.CENTER);
         passlabel.setVerticalAlignment(JLabel.CENTER);
         passlabel.setBounds(70, 410, 100, 30);
-        JTextField tf2=new JTextField();
+        tf2=new JPasswordField();
         tf2.setBounds(150, 410, 200, 30);
 
         JButton btn=new JButton();
@@ -65,6 +71,20 @@ class gui extends Main implements ActionListener {
         btn.setBounds(180, 450, 135, 30);
         btn.setText("LOGIN");
         btn.setFocusable(true);
+        btn.setBackground(Color.BLACK);
+        btn.setForeground(Color.WHITE);
+        btn.setBorderPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn.addMouseListener(new MouseAdapter() {
+        public void mouseEntered(MouseEvent evt) {
+        btn.setBackground(Color.DARK_GRAY); 
+        }
+
+        public void mouseExited(MouseEvent evt) {
+        btn.setBackground(Color.BLACK);
+        }
+        });
+
         
         JButton btn1=new JButton();
         btn1.setHorizontalTextPosition(JButton.CENTER);
@@ -74,6 +94,20 @@ class gui extends Main implements ActionListener {
         btn1.setBounds(180, 490, 135, 30);
         btn1.setText("NEW ACCOUNT");
             btn1.setFocusable(true);
+        btn1.setFocusable(true);
+        btn1.setBackground(Color.BLACK);
+        btn1.setForeground(Color.WHITE);
+        btn1.setBorderPainted(false);
+        btn1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn1.addMouseListener(new MouseAdapter() {
+        public void mouseEntered(MouseEvent evt) {
+        btn1.setBackground(Color.DARK_GRAY); 
+        }
+
+        public void mouseExited(MouseEvent evt) {
+        btn1.setBackground(Color.BLACK);
+        }
+        });
 
        
 
@@ -104,12 +138,47 @@ class gui extends Main implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command=e.getActionCommand();
         if(command.equals("LOGIN")) {
-            jf.dispose();
-            loggedin LoggedIn = new loggedin();
+            
+
+             try {
+            // Load SQLite JDBC driver
+            Class.forName("org.sqlite.JDBC.Driver");
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+}
+            try (Connection conn = DriverManager.getConnection("jdbc:sqlite:login.db")) {
+            String username = tf.getText();
+
+            String password = tf2.getText();
+             String checkSql = "SELECT * FROM users WHERE username = ? AND password = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setString(1, username);
+            checkStmt.setString(2, password);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                jf.dispose();
+                loggedin LoggedIn = new loggedin();
+            } else {
+                
+                JOptionPane.showMessageDialog(jf, "Invalid Credentials ", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+                
+            }
+
+        } catch (SQLException ei) {
+            ei.printStackTrace();
         }
+    }
+
+
+
+        
         else if(command.equals("NEW ACCOUNT")) {
             jf.dispose();
             newaccount newacc = new newaccount();
         }
+
+
     }
 }
