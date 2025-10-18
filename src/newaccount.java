@@ -116,7 +116,7 @@ public class newaccount implements ActionListener {
 
                     try {
             // Load SQLite JDBC driver
-            Class.forName("org.sqlite.JDBC");
+            Class.forName("org.sqlite.JDBC.Driver");
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
 }
