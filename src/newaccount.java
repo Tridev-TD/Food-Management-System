@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -76,9 +77,39 @@ public class newaccount implements ActionListener {
         JButton createButton = new JButton("CREATE ACCOUNT");
         createButton.setBounds(140, 500, 150, 30);
         createButton.setFocusable(true);
+        createButton.setFont(new Font("Dialog", Font.PLAIN, 12));
+        createButton.setFocusable(true);
+        createButton.setBackground(Color.BLACK);
+        createButton.setForeground(Color.WHITE);
+        createButton.setBorderPainted(false);
+        createButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        createButton.addMouseListener(new MouseAdapter() {
+        public void mouseEntered(MouseEvent evt) {
+        createButton.setBackground(Color.DARK_GRAY); 
+        }
+
+        public void mouseExited(MouseEvent evt) {
+        createButton.setBackground(Color.BLACK);
+        }
+        });
         JButton cancelButton = new JButton("CANCEL");
         cancelButton.setBounds(300, 500, 100, 30);
+        
+        cancelButton.setFont(new Font("Dialog", Font.PLAIN, 12));
         cancelButton.setFocusable(true);
+        cancelButton.setBackground(Color.BLACK);
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setBorderPainted(false);
+        cancelButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        cancelButton.addMouseListener(new MouseAdapter() {
+        public void mouseEntered(MouseEvent evt) {
+        cancelButton.setBackground(Color.DARK_GRAY); 
+        }
+
+        public void mouseExited(MouseEvent evt) {
+        cancelButton.setBackground(Color.BLACK);
+        }
+        });
 
 
         newframe = new JFrame();

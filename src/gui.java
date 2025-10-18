@@ -14,7 +14,7 @@ class gui extends Main implements ActionListener {
     JPasswordField tf2;
     gui() {
         jl=new JLabel();
-        Font font = new Font("Monospaced", Font.BOLD, 24);
+        Font font = new Font("Roboto", Font.BOLD, 24);
         jl.setFont(font);
         jl.setText("Food Management System");
         jl.setHorizontalTextPosition(JLabel.CENTER);
@@ -45,22 +45,28 @@ class gui extends Main implements ActionListener {
 
         JLabel userlabel=new JLabel();
         userlabel.setText("Username:");
+        userlabel.setFont(new Font("DialogInput", Font.BOLD, 16));
         userlabel.setHorizontalTextPosition(JLabel.CENTER);
         userlabel.setVerticalTextPosition(JLabel.BOTTOM);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setVerticalAlignment(JLabel.CENTER);
-        userlabel.setBounds(70, 370, 100, 30);
+        userlabel.setBounds(50, 370, 100, 30);
         tf=new JTextField();
+        tf.setBackground(Color.WHITE);
+        tf.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         tf.setBounds(150, 370, 200, 30);
 
         JLabel passlabel=new JLabel();
         passlabel.setText("Password:");
+        passlabel.setFont(new Font("DialogInput", Font.BOLD, 16));
         passlabel.setHorizontalTextPosition(JLabel.CENTER);
         passlabel.setVerticalTextPosition(JLabel.BOTTOM);
         passlabel.setHorizontalAlignment(JLabel.CENTER);
         passlabel.setVerticalAlignment(JLabel.CENTER);
-        passlabel.setBounds(70, 410, 100, 30);
+        passlabel.setBounds(50, 410, 100, 30);
         tf2=new JPasswordField();
+        tf2.setBackground(Color.WHITE);
+        tf2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         tf2.setBounds(150, 410, 200, 30);
 
         JButton btn=new JButton();
@@ -70,6 +76,7 @@ class gui extends Main implements ActionListener {
         btn.setVerticalAlignment(JButton.CENTER);
         btn.setBounds(180, 450, 135, 30);
         btn.setText("LOGIN");
+        btn.setFont(new Font("Dialog", Font.PLAIN, 12));
         btn.setFocusable(true);
         btn.setBackground(Color.BLACK);
         btn.setForeground(Color.WHITE);
@@ -93,8 +100,7 @@ class gui extends Main implements ActionListener {
         btn1.setVerticalAlignment(JButton.CENTER);
         btn1.setBounds(180, 490, 135, 30);
         btn1.setText("NEW ACCOUNT");
-            btn1.setFocusable(true);
-        btn1.setFocusable(true);
+        btn1.setFont(new Font("Dialog", Font.PLAIN, 12));
         btn1.setBackground(Color.BLACK);
         btn1.setForeground(Color.WHITE);
         btn1.setBorderPainted(false);

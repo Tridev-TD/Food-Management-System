@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+import org.w3c.dom.events.MouseEvent;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -9,6 +12,21 @@ public class loggedin implements ActionListener {
 
         JButton logoutButton = new JButton("Logout");
         logoutButton.setBounds(1430, 10, 100, 30);
+        logoutButton.setFont(new Font("Dialog", Font.PLAIN, 12));
+        logoutButton.setFocusable(true);
+        logoutButton.setBackground(Color.BLACK);
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setBorderPainted(false);
+        logoutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        logoutButton.addMouseListener(new MouseAdapter() {
+        public void mouseEntered(MouseEvent evt) {
+        logoutButton.setBackground(Color.DARK_GRAY); 
+        }
+
+        public void mouseExited(MouseEvent evt) {
+        logoutButton.setBackground(Color.BLACK);
+        }
+        });
         
 
         loggedinframe = new JFrame();
