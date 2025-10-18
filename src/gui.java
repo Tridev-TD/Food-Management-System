@@ -14,9 +14,9 @@ class gui extends Main implements ActionListener {
         jl.setHorizontalAlignment(JLabel.CENTER);
         jl.setVerticalAlignment(JLabel.CENTER);
         jl.setBounds(50, 10, 400, 100);
-        ImageIcon img1=new ImageIcon("C:\\Java Project\\Food-Management-System\\images\\img1.jpg");
-        ImageIcon img2=new ImageIcon("C:\\Java Project\\Food-Management-System\\images\\l.png");
-        
+        ImageIcon img1=new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\img1.jpg");
+        ImageIcon img2=new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\l.png");
+
         JPanel panel=new JPanel();
         //java.awt.Image img=img2.getImage();
         //java.awt.Image newimg=img.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
