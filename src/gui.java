@@ -8,7 +8,9 @@ class gui extends Main implements ActionListener {
     JLabel jl,jl2;
     gui() {
         jl=new JLabel();
-        jl.setText("Welcome to Food Management System");
+        Font font = new Font("Monospaced", Font.BOLD, 24);
+        jl.setFont(font);
+        jl.setText("Food Management System");
         jl.setHorizontalTextPosition(JLabel.CENTER);
         jl.setVerticalTextPosition(JLabel.BOTTOM);
         jl.setHorizontalAlignment(JLabel.CENTER);
@@ -22,7 +24,8 @@ class gui extends Main implements ActionListener {
         //java.awt.Image newimg=img.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
         //img2=new ImageIcon(newimg);
         jl2=new JLabel();
-        
+        jl2.setFont(font);
+        jl2.setText("LOGIN");
         jl2.setIcon(img2);
         jl2.setHorizontalTextPosition(JLabel.CENTER);
         jl2.setVerticalTextPosition(JLabel.BOTTOM);
@@ -61,6 +64,7 @@ class gui extends Main implements ActionListener {
         btn.setVerticalAlignment(JButton.CENTER);
         btn.setBounds(180, 450, 135, 30);
         btn.setText("LOGIN");
+        btn.setFocusable(true);
         
         JButton btn1=new JButton();
         btn1.setHorizontalTextPosition(JButton.CENTER);
@@ -69,6 +73,7 @@ class gui extends Main implements ActionListener {
         btn1.setVerticalAlignment(JButton.CENTER);
         btn1.setBounds(180, 490, 135, 30);
         btn1.setText("NEW ACCOUNT");
+            btn1.setFocusable(true);
 
        
 

@@ -13,9 +13,12 @@ public class newaccount implements ActionListener {
     private JCheckBox checkBox; 
     private JCheckBox checkBox2; 
     newaccount() {
+        Font font = new Font("Monospaced", Font.BOLD, 24);
+
 
 
         JLabel titleLabel = new JLabel("Create a New Account");
+        titleLabel.setFont(font);
         titleLabel.setHorizontalTextPosition(JLabel.CENTER);
         titleLabel.setVerticalTextPosition(JLabel.BOTTOM);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -71,7 +74,11 @@ public class newaccount implements ActionListener {
     checkBox2 = new JCheckBox("RECIPIENT");
     checkBox2.setBounds(300, 450, 100, 30);
         JButton createButton = new JButton("CREATE ACCOUNT");
-        createButton.setBounds(180, 500, 150, 30);
+        createButton.setBounds(140, 500, 150, 30);
+        createButton.setFocusable(true);
+        JButton cancelButton = new JButton("CANCEL");
+        cancelButton.setBounds(300, 500, 100, 30);
+        cancelButton.setFocusable(true);
 
 
         newframe = new JFrame();
@@ -91,6 +98,13 @@ public class newaccount implements ActionListener {
         newframe.add(checkBox);
         newframe.add(checkBox2);
         newframe.add(createButton);
+        newframe.add(cancelButton);
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                newframe.dispose();
+                gui g=new gui();
+            }
+        });
         createButton.addActionListener(this);
         newframe.setResizable(false);
         
