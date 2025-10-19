@@ -93,7 +93,6 @@ public class loggedin implements ActionListener {
                 } else {
 
                     try {
-                        // Load SQLite JDBC driver
                         Class.forName("org.sqlite.JDBC");
                     } catch (ClassNotFoundException ex) {
                         ex.printStackTrace();
@@ -167,6 +166,7 @@ public class loggedin implements ActionListener {
 
         loggedinframe.add(logoutButton);
         logoutButton.addActionListener(this);
+        loggedinframe.setLocationRelativeTo(null);
 
         loggedinframe.setVisible(true);
     }

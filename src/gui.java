@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+import org.w3c.dom.events.MouseEvent;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -44,7 +47,7 @@ class gui extends Main implements ActionListener {
         panel.add(jl2);
         panel.setVisible(true);
         panel.setBounds(120, 100, 250, 250);
-        panel.setBackground(new java.awt.Color(123, 50, 250));
+        panel.setBackground(new java.awt.Color(220, 240, 255));
 
         JLabel userlabel = new JLabel();
         userlabel.setText("Username:");
@@ -121,9 +124,10 @@ class gui extends Main implements ActionListener {
         jf.setTitle("Food Management System");
         jf.setSize(500, 600);
         jf.setResizable(false);
+        jf.setLocationRelativeTo(null);
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.getContentPane().setBackground(new java.awt.Color(123, 50, 250));
+        jf.getContentPane().setBackground(new java.awt.Color(220, 240, 255));
         jf.setIconImage(img1.getImage());
         jf.add(jl, BorderLayout.NORTH);
         jf.add(panel, BorderLayout.CENTER);
