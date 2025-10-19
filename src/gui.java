@@ -6,14 +6,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 class gui extends Main implements ActionListener {
-    
+
     JFrame jf;
-    JLabel jl,jl2;
+    JLabel jl, jl2;
     JTextField tf;
     JPasswordField tf2;
+
     gui() {
-        jl=new JLabel();
+        jl = new JLabel();
         Font font = new Font("Roboto", Font.BOLD, 24);
         jl.setFont(font);
         jl.setText("Food Management System");
@@ -22,14 +24,15 @@ class gui extends Main implements ActionListener {
         jl.setHorizontalAlignment(JLabel.CENTER);
         jl.setVerticalAlignment(JLabel.CENTER);
         jl.setBounds(50, 10, 400, 100);
-        ImageIcon img1=new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\img1.jpg");
-        ImageIcon img2=new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\l.png");
+        ImageIcon img1 = new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\img1.jpg");
+        ImageIcon img2 = new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\l.png");
 
-        JPanel panel=new JPanel();
-        //java.awt.Image img=img2.getImage();
-        //java.awt.Image newimg=img.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
-        //img2=new ImageIcon(newimg);
-        jl2=new JLabel();
+        JPanel panel = new JPanel();
+        // java.awt.Image img=img2.getImage();
+        // java.awt.Image newimg=img.getScaledInstance(200, 200,
+        // java.awt.Image.SCALE_SMOOTH);
+        // img2=new ImageIcon(newimg);
+        jl2 = new JLabel();
         jl2.setFont(font);
         jl2.setText("LOGIN");
         jl2.setIcon(img2);
@@ -43,7 +46,7 @@ class gui extends Main implements ActionListener {
         panel.setBounds(120, 100, 250, 250);
         panel.setBackground(new java.awt.Color(123, 50, 250));
 
-        JLabel userlabel=new JLabel();
+        JLabel userlabel = new JLabel();
         userlabel.setText("Username:");
         userlabel.setFont(new Font("DialogInput", Font.BOLD, 16));
         userlabel.setHorizontalTextPosition(JLabel.CENTER);
@@ -51,12 +54,12 @@ class gui extends Main implements ActionListener {
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setVerticalAlignment(JLabel.CENTER);
         userlabel.setBounds(50, 370, 100, 30);
-        tf=new JTextField();
+        tf = new JTextField();
         tf.setBackground(Color.WHITE);
         tf.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         tf.setBounds(150, 370, 200, 30);
 
-        JLabel passlabel=new JLabel();
+        JLabel passlabel = new JLabel();
         passlabel.setText("Password:");
         passlabel.setFont(new Font("DialogInput", Font.BOLD, 16));
         passlabel.setHorizontalTextPosition(JLabel.CENTER);
@@ -64,12 +67,12 @@ class gui extends Main implements ActionListener {
         passlabel.setHorizontalAlignment(JLabel.CENTER);
         passlabel.setVerticalAlignment(JLabel.CENTER);
         passlabel.setBounds(50, 410, 100, 30);
-        tf2=new JPasswordField();
+        tf2 = new JPasswordField();
         tf2.setBackground(Color.WHITE);
         tf2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         tf2.setBounds(150, 410, 200, 30);
 
-        JButton btn=new JButton();
+        JButton btn = new JButton();
         btn.setHorizontalTextPosition(JButton.CENTER);
         btn.setVerticalTextPosition(JButton.BOTTOM);
         btn.setHorizontalAlignment(JButton.CENTER);
@@ -83,17 +86,16 @@ class gui extends Main implements ActionListener {
         btn.setBorderPainted(false);
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btn.addMouseListener(new MouseAdapter() {
-        public void mouseEntered(MouseEvent evt) {
-        btn.setBackground(Color.DARK_GRAY); 
-        }
+            public void mouseEntered(MouseEvent evt) {
+                btn.setBackground(Color.DARK_GRAY);
+            }
 
-        public void mouseExited(MouseEvent evt) {
-        btn.setBackground(Color.BLACK);
-        }
+            public void mouseExited(MouseEvent evt) {
+                btn.setBackground(Color.BLACK);
+            }
         });
 
-        
-        JButton btn1=new JButton();
+        JButton btn1 = new JButton();
         btn1.setHorizontalTextPosition(JButton.CENTER);
         btn1.setVerticalTextPosition(JButton.BOTTOM);
         btn1.setHorizontalAlignment(JButton.CENTER);
@@ -106,16 +108,14 @@ class gui extends Main implements ActionListener {
         btn1.setBorderPainted(false);
         btn1.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btn1.addMouseListener(new MouseAdapter() {
-        public void mouseEntered(MouseEvent evt) {
-        btn1.setBackground(Color.DARK_GRAY); 
-        }
+            public void mouseEntered(MouseEvent evt) {
+                btn1.setBackground(Color.DARK_GRAY);
+            }
 
-        public void mouseExited(MouseEvent evt) {
-        btn1.setBackground(Color.BLACK);
-        }
+            public void mouseExited(MouseEvent evt) {
+                btn1.setBackground(Color.BLACK);
+            }
         });
-
-       
 
         jf = new JFrame();
         jf.setTitle("Food Management System");
@@ -137,54 +137,48 @@ class gui extends Main implements ActionListener {
         jf.setLayout(null);
         btn.addActionListener(this);
         btn1.addActionListener(this);
-        //jf.pack();
-        
+        // jf.pack();
 
     }
+
     public void actionPerformed(ActionEvent e) {
-        String command=e.getActionCommand();
-        if(command.equals("LOGIN")) {
-            
+        String command = e.getActionCommand();
+        if (command.equals("LOGIN")) {
 
-             try {
-            // Load SQLite JDBC driver
-            Class.forName("org.sqlite.JDBC.Driver");
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-}
-            try (Connection conn = DriverManager.getConnection("jdbc:sqlite:login.db")) {
-            String username = tf.getText();
-
-            String password = tf2.getText();
-             String checkSql = "SELECT * FROM users WHERE username = ? AND password = ?";
-            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
-            checkStmt.setString(1, username);
-            checkStmt.setString(2, password);
-            ResultSet rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
-                jf.dispose();
-                loggedin LoggedIn = new loggedin();
-            } else {
-                
-                JOptionPane.showMessageDialog(jf, "Invalid Credentials ", "Error", JOptionPane.INFORMATION_MESSAGE);
-
-                
+            try {
+                // Load SQLite JDBC driver
+                Class.forName("org.sqlite.JDBC.Driver");
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
             }
+            try (Connection conn = DriverManager.getConnection("jdbc:sqlite:login.db")) {
+                String username = tf.getText();
 
-        } catch (SQLException ei) {
-            ei.printStackTrace();
+                String password = tf2.getText();
+                String checkSql = "SELECT * FROM users WHERE username = ? AND password = ?";
+                PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+                checkStmt.setString(1, username);
+                checkStmt.setString(2, password);
+                ResultSet rs = checkStmt.executeQuery();
+
+                if (rs.next()) {
+                    jf.dispose();
+                    loggedin LoggedIn = new loggedin();
+                } else {
+
+                    JOptionPane.showMessageDialog(jf, "Invalid Credentials ", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+
+            } catch (SQLException ei) {
+                ei.printStackTrace();
+            }
         }
-    }
 
-
-
-        
-        else if(command.equals("NEW ACCOUNT")) {
+        else if (command.equals("NEW ACCOUNT")) {
             jf.dispose();
             newaccount newacc = new newaccount();
         }
-
 
     }
 }
