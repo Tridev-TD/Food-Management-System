@@ -12,6 +12,8 @@ public class recive implements ActionListener {
     JFrame reciveFrame;
     JTextArea donationsArea;
     JButton logoutButton, refreshButton;
+    JLabel claimLabel;
+    JTextField donorNameField;
 
     recive() {
         reciveFrame = new JFrame("Recipient Page");
@@ -71,6 +73,33 @@ public class recive implements ActionListener {
         scrollPane.setBounds(50, 70, 450, 300);
         reciveFrame.add(scrollPane);
 
+        JLabel claimLabel = new JLabel("To claim a donation, please enter donor name:");
+        claimLabel.setBounds(50, 380, 400, 30);
+        claimLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        reciveFrame.add(claimLabel);
+        donorNameField = new JTextField();
+        donorNameField.setBounds(50, 420, 200, 30);
+        reciveFrame.add(donorNameField);
+
+        JButton claimButton = new JButton("Claim Donation");
+        claimButton.setBounds(270, 420, 150, 30);
+        reciveFrame.add(claimButton);
+        claimButton.setFont(new Font("Dialog", Font.PLAIN, 12));
+        claimButton.setFocusable(true);
+        claimButton.setBackground(Color.BLACK);
+        claimButton.setForeground(Color.WHITE);
+        claimButton.setBorderPainted(false);
+        claimButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        claimButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                claimButton.setBackground(Color.DARK_GRAY);
+            }
+
+            public void mouseExited(MouseEvent evt) {
+                claimButton.setBackground(Color.BLACK);
+            }
+        });
+
         logoutButton = new JButton("Logout");
         logoutButton.setBounds(400, 10, 100, 30);
         logoutButton.setFont(new Font("Dialog", Font.PLAIN, 12));
@@ -93,6 +122,7 @@ public class recive implements ActionListener {
         logoutButton.addActionListener(this);
         refreshButton.addActionListener(this);
         donateButton.addActionListener(this);
+        claimButton.addActionListener(this);
         reciveFrame.setLocationRelativeTo(null);
         reciveFrame.setVisible(true);
     }
@@ -102,7 +132,7 @@ public class recive implements ActionListener {
         if (command.equals("Logout")) {
             reciveFrame.dispose();
             gui g = new gui();
-        } else if (command.equals("Donate Food")) {
+        } else if (command.equals("Donate")) {
             reciveFrame.dispose();
             donation d = new donation();
         } else if (command.equals("Refresh List")) {
@@ -134,6 +164,31 @@ public class recive implements ActionListener {
                 conn.close();
             } catch (SQLException ex) {
                 donationsArea.append("Error retrieving donations: " + ex.getMessage() + "\n");
+            }
+        }else if (command.equals("Claim Donation")) {
+            {
+                String donorName = donorNameField.getText().trim();
+                if (donorName.isEmpty()) {
+                    JOptionPane.showMessageDialog(reciveFrame, "Please enter a donor name.");
+                    return;
+                }
+                try {
+                    Connection conn = DriverManager.getConnection("jdbc:sqlite:login.db");
+                    String sql = "DELETE FROM donate WHERE name = ?";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, donorName);
+                    int affectedRows = pstmt.executeUpdate();
+                    if (affectedRows > 0) {
+                        JOptionPane.showMessageDialog(reciveFrame, "Donation claimed successfully!\nPlease contact the donor: " + donorName+"\nContact details are available in the donation list.");
+                    } else {
+                        JOptionPane.showMessageDialog(reciveFrame, "No donation found for the given donor name.");
+                    }
+                    pstmt.close();
+                    conn.close();
+                    donorNameField.setText("");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(reciveFrame, "Error claiming donation: " + ex.getMessage());
+                }
             }
         }
     }
