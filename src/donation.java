@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class donation implements ActionListener {
     JFrame donationframe;
     JLabel titleLabel, nameLabel, foodLabel, quantityLabel, expiryLabel, contactLabel;
@@ -28,6 +29,24 @@ public class donation implements ActionListener {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
         titleLabel.setBounds(160, 20, 300, 30);
         donationframe.add(titleLabel);
+
+        JButton showavailableButton = new JButton("Show Donations");
+        showavailableButton.setBounds(10, 10, 100, 30);
+        showavailableButton.setFont(new Font("Dialog", Font.PLAIN, 12));
+        showavailableButton.setFocusable(true);
+        showavailableButton.setBackground(Color.BLACK);
+        showavailableButton.setForeground(Color.WHITE);
+        showavailableButton.setBorderPainted(false);
+        showavailableButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        showavailableButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                showavailableButton.setBackground(Color.DARK_GRAY);
+            }
+
+            public void mouseExited(MouseEvent evt) {
+                showavailableButton.setBackground(Color.BLACK);
+            }
+        });
 
         nameLabel = new JLabel("Donor Name:");
         foodLabel = new JLabel("Food Item:");
@@ -165,9 +184,10 @@ public class donation implements ActionListener {
                 logoutButton.setBackground(Color.BLACK);
             }
         });
-
+        donationframe.add(showavailableButton);
         donationframe.add(logoutButton);
         logoutButton.addActionListener(this);
+        showavailableButton.addActionListener(this);
         donationframe.setLocationRelativeTo(null);
 
         donationframe.setVisible(true);
@@ -179,6 +199,9 @@ public class donation implements ActionListener {
         if (command.equals("Logout")) {
             donationframe.dispose();
             gui g = new gui();
+        } else if (command.equals("Show Donations")) {
+            donationframe.dispose();
+            recive r = new recive();
         }
     }
 }
