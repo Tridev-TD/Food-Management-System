@@ -138,6 +138,7 @@ public class newaccount implements ActionListener {
         });
         createButton.addActionListener(this);
         newframe.setResizable(false);
+        newframe.setLocationRelativeTo(null);
 
     }
 

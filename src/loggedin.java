@@ -2,11 +2,7 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class loggedin implements ActionListener {
     JFrame loggedinframe;
@@ -14,137 +10,24 @@ public class loggedin implements ActionListener {
     JTextField nameField, foodField, quantityField, expiryField, contactField;
     JTextArea outputArea;
     JButton submitButton, clearButton, logoutButton;
+    gui gui;
+    donation donation;
+    recive recive;
+    
 
     loggedin() {
 
-        loggedinframe = new JFrame("Food Donation Page");
+        loggedinframe = new JFrame("DASHBOARD");
         loggedinframe.setSize(550, 600);
         loggedinframe.setLayout(null);
         loggedinframe.setResizable(false);
         loggedinframe.getContentPane().setBackground(new Color(220, 240, 255));
         loggedinframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        titleLabel = new JLabel("Food Donation Form");
+        titleLabel = new JLabel("Dashboard");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
-        titleLabel.setBounds(160, 20, 300, 30);
+        titleLabel.setBounds(10, 20, 300, 30);
         loggedinframe.add(titleLabel);
-
-        nameLabel = new JLabel("Donor Name:");
-        foodLabel = new JLabel("Food Item:");
-        quantityLabel = new JLabel("Quantity:");
-        expiryLabel = new JLabel("Expiry Date:");
-        contactLabel = new JLabel("Contact Number:");
-
-        nameLabel.setBounds(80, 80, 120, 25);
-        foodLabel.setBounds(80, 120, 120, 25);
-        quantityLabel.setBounds(80, 160, 120, 25);
-        expiryLabel.setBounds(80, 200, 120, 25);
-        contactLabel.setBounds(80, 240, 120, 25);
-
-        loggedinframe.add(nameLabel);
-        loggedinframe.add(foodLabel);
-        loggedinframe.add(quantityLabel);
-        loggedinframe.add(expiryLabel);
-        loggedinframe.add(contactLabel);
-
-        nameField = new JTextField();
-        foodField = new JTextField();
-        quantityField = new JTextField();
-        expiryField = new JTextField();
-        contactField = new JTextField();
-
-        nameField.setBounds(210, 80, 220, 25);
-        foodField.setBounds(210, 120, 220, 25);
-        quantityField.setBounds(210, 160, 220, 25);
-        expiryField.setBounds(210, 200, 220, 25);
-        contactField.setBounds(210, 240, 220, 25);
-
-        loggedinframe.add(nameField);
-        loggedinframe.add(foodField);
-        loggedinframe.add(quantityField);
-        loggedinframe.add(expiryField);
-        loggedinframe.add(contactField);
-
-        submitButton = new JButton("Submit");
-        clearButton = new JButton("Clear");
-        submitButton.setBounds(150, 290, 100, 30);
-        clearButton.setBounds(280, 290, 100, 30);
-        loggedinframe.add(submitButton);
-        loggedinframe.add(clearButton);
-
-        outputArea = new JTextArea();
-        outputArea.setEditable(false);
-        outputArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
-        JScrollPane scrollPane = new JScrollPane(outputArea);
-        scrollPane.setBounds(60, 350, 410, 180);
-        loggedinframe.add(scrollPane);
-
-        submitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String name = nameField.getText().trim();
-                String food = foodField.getText().trim();
-                String qty = quantityField.getText().trim();
-                String expiry = expiryField.getText().trim();
-                String contact = contactField.getText().trim();
-
-                if (name.isEmpty() || food.isEmpty() || qty.isEmpty() || expiry.isEmpty() || contact.isEmpty()) {
-                    JOptionPane.showMessageDialog(loggedinframe, "Please fill all fields!", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                } else {
-
-                    try {
-                        Class.forName("org.sqlite.JDBC");
-                    } catch (ClassNotFoundException ex) {
-                        ex.printStackTrace();
-                    }
-                    try (Connection conn = DriverManager.getConnection("jdbc:sqlite:login.db")) {
-
-                        String insertSql = "INSERT INTO donate(name, food, quantity, date, contact) VALUES(?, ?, ?, ?, ?)";
-                        PreparedStatement insertStmt = conn.prepareStatement(insertSql);
-                        insertStmt.setString(1, name);
-                        insertStmt.setString(2, food);
-                        insertStmt.setString(3, qty);
-                        insertStmt.setString(4, expiry);
-                        insertStmt.setString(5, contact);
-
-                        insertStmt.executeUpdate();
-                        System.out.println("Data inserted successfully!");
-                    }
-
-                    catch (SQLException ei) {
-                        ei.printStackTrace();
-                    }
-
-                    outputArea.setText("Donation Details:\n");
-                    outputArea.append("----------------------------------------\n");
-                    outputArea.append("Donor Name: " + name + "\n");
-                    outputArea.append("Food Item: " + food + "\n");
-                    outputArea.append("Quantity: " + qty + "\n");
-                    outputArea.append("Expiry Date: " + expiry + "\n");
-                    outputArea.append("Contact Number: " + contact + "\n");
-                    outputArea.append("----------------------------------------\n");
-                    outputArea.append("Thank you, " + name + "! Your donation has been recorded.\n");
-
-                    nameField.setText("");
-                    foodField.setText("");
-                    quantityField.setText("");
-                    expiryField.setText("");
-                    contactField.setText("");
-
-                }
-            }
-        });
-
-        clearButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                nameField.setText("");
-                foodField.setText("");
-                quantityField.setText("");
-                expiryField.setText("");
-                contactField.setText("");
-                outputArea.setText("");
-            }
-        });
 
         logoutButton = new JButton("Logout");
         logoutButton.setBounds(400, 10, 100, 30);
@@ -163,11 +46,73 @@ public class loggedin implements ActionListener {
                 logoutButton.setBackground(Color.BLACK);
             }
         });
+        
+        JLabel welcomeLabel = new JLabel("Welcome to the Food Management System!");
+        welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        welcomeLabel.setBounds(130, 100, 350, 30);
+        loggedinframe.add(welcomeLabel);
 
+        JLabel DonateLabel = new JLabel("To donate food, please visit the Donation Page.");
+        DonateLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        DonateLabel.setBounds(100, 180, 400, 30);
+        loggedinframe.add(DonateLabel);
+
+        JButton Donatebutton = new JButton("Go to Donation Page");
+        Donatebutton.setBounds(200, 220, 150, 30);
+        Donatebutton.setFont(new Font("Dialog", Font.PLAIN, 12));
+        Donatebutton.setFocusable(true);
+        Donatebutton.setBackground(Color.BLACK);
+        Donatebutton.setForeground(Color.WHITE);
+        Donatebutton.setBorderPainted(false);
+        Donatebutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        Donatebutton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                Donatebutton.setBackground(Color.DARK_GRAY);
+            }
+
+            public void mouseExited(MouseEvent evt) {
+                Donatebutton.setBackground(Color.BLACK);
+            }
+        });
+
+        JLabel ReciveLabel = new JLabel("To receive food, please visit the Recipient Page.");  
+        ReciveLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        ReciveLabel.setBounds(100, 260, 400, 30);
+        loggedinframe.add(ReciveLabel);
+
+        JButton Recivebutton = new JButton("Go to Recipient Page");
+        Recivebutton.setBounds(200, 300, 150, 30);
+        Recivebutton.setFont(new Font("Dialog", Font.PLAIN, 12));
+        Recivebutton.setFocusable(true);
+        Recivebutton.setBackground(Color.BLACK);
+        Recivebutton.setForeground(Color.WHITE);
+        Recivebutton.setBorderPainted(false);
+        Recivebutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        Recivebutton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                Recivebutton.setBackground(Color.DARK_GRAY);
+            }
+
+            public void mouseExited(MouseEvent evt) {
+                Recivebutton.setBackground(Color.BLACK);
+            }
+        });
+
+        JLabel infoLabel = new JLabel("Thank you for being a part of our community!");
+        infoLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        infoLabel.setBounds(100, 340, 400, 30);
+        loggedinframe.add(infoLabel);
+
+        loggedinframe.add(Recivebutton);
+        loggedinframe.add(Donatebutton);
         loggedinframe.add(logoutButton);
-        logoutButton.addActionListener(this);
-        loggedinframe.setLocationRelativeTo(null);
 
+        logoutButton.addActionListener(this);
+        Donatebutton.addActionListener(this);
+        Recivebutton.addActionListener(this);
+
+
+        loggedinframe.setLocationRelativeTo(null);
         loggedinframe.setVisible(true);
     }
 
@@ -176,7 +121,13 @@ public class loggedin implements ActionListener {
 
         if (command.equals("Logout")) {
             loggedinframe.dispose();
-            gui g = new gui();
+            gui = new gui();
+        } else if (command.equals("Go to Donation Page")) {
+            loggedinframe.dispose();
+            donation = new donation();
+        } else if (command.equals("Go to Recipient Page")) {
+            loggedinframe.dispose();
+            recive = new recive();
         }
     }
 }
