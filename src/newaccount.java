@@ -28,7 +28,7 @@ public class newaccount implements ActionListener {
         titleLabel.setVerticalAlignment(JLabel.CENTER);
         titleLabel.setBounds(100, 50, 300, 30);
 
-        ImageIcon img2 = new ImageIcon("D:\\vs_code\\java project\\Food-Management-System\\images\\l1.png");
+        ImageIcon img2 = new ImageIcon("E:\\College\\Java Project\\Food-Management-System\\images\\l1.png");
 
         JPanel createPanel = new JPanel();
         java.awt.Image img = img2.getImage();
